@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Details</title>
+    <style>
+        #cont{
+            display: flex;
+            margin: 20px;
+            gap: 10px;
+        }
+        .card{
+            outline:2px dashed black;
+        }
+        .hidden{
+            display: none;
+        }
+        .visible{
+            display: inline;
+        }
+    </style>
+</head>
+<body>
+    <input type="text" id="name" placeholder="Enter name"><br><br>
+    <input type="text" id="number" placeholder="Enter Phone Number"><br><br>
+    <button id="createButton">Create</button>
+    <div id="cont"></div>
+</body>
+<script>
+    window.addEventListener('load',function(){
+        var createButton= document.getElementById('createButton')
+        createButton.addEventListener('click',handleCreate)
+    })
+    function handleCreate(){
+        var cont= document.getElementById('cont')
+        var div= document.createElement('div')
+        div.append(createCard())
+        cont.append(div)
+    }
+    function createCard(){
+        var name= document.createElement('h3')
+        name.textContent='Name: '+document.getElementById('name').value
+        console.log(name.textContent)
+        var showBtn= document.createElement('button')
+        showBtn.textContent= 'SHOW'
+        var hideNumb= document.createElement('h4')
+        hideNumb.innerHTML = '<br><br>Phone: Hidden'
+        hideNumb.className= 'visible'
+        var number= document.createElement('p')
+        number.innerHTML= '<br><br>Phone: '+document.getElementById('number').value
+        number.className='hidden'
+        var div= document.createElement('div')
+        div.append(name,showBtn,hideNumb,number)
+        div.className='card'
+        showBtn.addEventListener('click',handleShow)
+        return div
+    }
+    function handleShow(){
+        var card= event.target.parentNode
+        var btn= card.querySelector('button')
+        if(btn.textContent==='SHOW'){
+            showNumber(card)
+            btn.textContent='HIDE'
+        }
+        else{
+            hideNumber(card)
+            btn.textContent='SHOW'
+        }
+    }
+    function showNumber(card){
+        var hideNumb= card.querySelector('h4')
+        hideNumb.className='hidden'
+        var number= card.querySelector('p')
+        number.className='visible'
+    }
+    function hideNumber(card){
+        var hideNumb= card.querySelector('h4')
+        hideNumb.className='visible'
+        var number= card.querySelector('p')
+        number.className='hidden'
+    }
+</script>
+</html>
